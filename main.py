@@ -43,7 +43,7 @@ def testpython(event, context):
     # Actual file data , writing to Big Query
     # Specifying different separators for different types of CSV files
     
-    separators = [',', ';', '|', '\t', '\s+']
+    separators = [',', ';', '|']
     for sep in separators:
         try:
             df_data = pd.read_csv('gs://' + event['bucket'] + '/' + file_name, sep=sep)
