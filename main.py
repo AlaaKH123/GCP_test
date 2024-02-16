@@ -39,8 +39,17 @@ def testpython(event, context):
                         if_exists='append',
                         location='europe-west1')
     
+    
     # Actual file data , writing to Big Query
-    df_data = pd.read_csv('gs://' + event['bucket'] + '/' + file_name)
+    # Specifying different separators for different types of CSV files
+    
+    separators = [',', ';', '|', '\t', '\s+']
+    for sep in separators:
+        try:
+            df_data = pd.read_csv('gs://' + event['bucket'] + '/' + file_name, sep=sep)
+            break
+        except pd.errors.ParserError:
+            continue
 
     df_data.to_gbq('test_data_platforme.' + table_name, 
                         project_id='fivetran-408613', 
