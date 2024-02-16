@@ -34,17 +34,15 @@ def testpython(event, context):
         }
     lst.append(dct)
     df_metadata = pd.DataFrame.from_records(lst)
-    df_metadata.to_gbq('test_data_platforme.data_loading_metadata', 
-                        project_id='fivetran-408613', 
+    df_metadata.to_gbq('gcp_dataeng_demos.data_loading_metadata', 
+                        project_id='gcp-dataeng-demos-365206', 
                         if_exists='append',
-                        location='europe-west1')
-    
+                        location='us')
     
     # Actual file data , writing to Big Query
-    
     df_data = pd.read_csv('gs://' + event['bucket'] + '/' + file_name)
 
-    df_data.to_gbq('test_data_platforme.' + table_name, 
-                        project_id='fivetran-408613', 
+    df_data.to_gbq('gcp_dataeng_demos.' + table_name, 
+                        project_id='gcp-dataeng-demos-365206', 
                         if_exists='append',
-                        location='europe-west1')
+                        location='us')
