@@ -19,8 +19,16 @@ def testpython(event, context):
          context (google.cloud.functions.Context): Metadata for the event.
     """
 
-    lst = []
+    
     file_name = event['name']
+    
+    
+    if not file_name.startswith('streaming/'):
+     print(f"Ignore file uploaded to non-streaming folder: {file_name}")
+     return
+    
+    
+    lst = []
     table_name = file_name.split('.')[0]
 
     # Event,File metadata details writing into Big Query
