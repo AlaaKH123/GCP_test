@@ -30,6 +30,8 @@ def testpython(event, context):
     
     lst = []
     table_name = file_name.split('.')[0]
+    # Replace "/" with "-" in table_name
+    table_name = table_name.replace("/", "-")
 
     # Event,File metadata details writing into Big Query
     dct={
